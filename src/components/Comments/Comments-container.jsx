@@ -12,15 +12,13 @@ function Comments ({article_id}) {
             setIsLoading(false)
         })
     },[article_id])
-
-    const commentsArr = comments.map((comment)=>{
-        return <li key={comment.comment_id} className="comment"><CommentTile comment={comment}/></li>
-    })
     
     if(isLoading) return <p>Loading...</p>
 
     return <div className="comment-container">
-        <ul>{commentsArr}</ul>
+        <ul>{comments.map((comment)=>{
+        return <li key={comment.comment_id} className="comment"><CommentTile comment={comment}/></li>
+    })}</ul>
     </div>
 }
 
