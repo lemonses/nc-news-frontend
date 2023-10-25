@@ -60,6 +60,14 @@ ul{
   margin:0
 }
 
+.pressed {
+  background-color: red;
+}
+
+.error-message{
+  color: red;
+}
+
 #article{
   border-right: solid red 0.5vw;
   grid-row: 1 / 3;
@@ -77,3 +85,4 @@ ul{
   flex-direction: column;
   list-style: none;
 }
+

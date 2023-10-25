@@ -20,3 +20,7 @@ export function getComments (article_id) {
         return response.data.comments
     })
 }
+
+export function addVotes (vote,article_id) {
+    return newsApi.patch(`/api/articles/${article_id}`,{inc_votes:vote})
+}

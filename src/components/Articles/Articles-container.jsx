@@ -14,13 +14,11 @@ function ArticlesContainer () {
         })  
     },[])
     
-    const articlesArr = articles.map((article)=>{
-        return <li key ={article.title}><Link to={`/article/${article.article_id}`}> <ArticlesTile article={article}/> </Link> </li>
-    })
-
     if(isLoading) return <p>Loading...</p>
 
-    return <ul id="articles">{articlesArr}</ul>
+    return <ul id="articles">{articles.map((article)=>{
+        return <li key ={article.title}><Link to={`/article/${article.article_id}`}> <ArticlesTile article={article}/> </Link> </li>
+    })}</ul>
 }
 
 export default ArticlesContainer
