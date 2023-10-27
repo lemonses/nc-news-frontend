@@ -30,7 +30,11 @@ export function postComment (comment,article_id) {
 }
 
 export function getTopics () {
-    return newsApi.get('/topics').then((response)=>{
+    return newsApi.get('topics').then((response)=>{
         return response.data.topics
     })
+}
+
+export function deleteComment (comment_id) {
+    return newsApi.delete(`comments/${comment_id}`)
 }
