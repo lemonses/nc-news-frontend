@@ -3,7 +3,6 @@ import { Link } from "react-router-dom"
 function Header() {
     function resetButtons(e) {
         const list = Array.from(document.getElementsByTagName('button'))
-        console.log(list)
         list.forEach(button => {
             button.className = "unpressed"
         })
