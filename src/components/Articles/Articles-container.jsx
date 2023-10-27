@@ -2,20 +2,28 @@ import { useEffect, useState } from "react"
 import ArticlesTile from "./Articles-tile"
 import { Link, useSearchParams } from "react-router-dom"
 import { getArticles, getTopics } from "../../api/api"
+import PageNotFound from "../Page-not-found"
 
 function ArticlesContainer () {
     const [articles,setArticles] = useState([])
     const [isLoading, setIsloading] = useState(true)
     const [searchParams, setSearchParams] = useSearchParams()
     const [topics, setTopics] = useState([])
+    const [error, setError] = useState(false)
 
     useEffect(()=>{
-        getArticles(searchParams.get('topic'),searchParams.get('sort_by'),searchParams.get('order')).then((result)=>{
+        getArticles(searchParams.get('topic'),searchParams.get('sort_by'),searchParams.get('order'))
+        .then((result)=>{
             setArticles(result)
             return getTopics()            
         }).then((result)=>{
             setTopics(result)
             setIsloading(false)
+            setError(false)
+        }).catch((err)=>{
+            console.log(err)
+            setIsloading(false)
+            setError(err.response.data.message)
         })
     },[searchParams])
 
@@ -77,6 +85,8 @@ function ArticlesContainer () {
     const updateTopicParams = createButtonFunction('topic')
 
     if(isLoading) return <p>Loading...</p>
+
+    if(error) return <PageNotFound error={error}/>
 
     return <div>
         <ul id="topics">{topics.map((topic)=>{
