@@ -53,11 +53,17 @@ ul{
   grid-column: 2;
   grid-row: 1;
   max-height: 80vh;
+  max-width: 30vw;
 }
 
 .comments-tile{
+  max-width: 30vw;
   text-align: center;
   margin:0
+}
+
+.comment-body{
+  word-wrap: break-word;
 }
 
 .pressed {
