@@ -1,7 +1,8 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { useParams} from "react-router"
 import { postComment } from "../../api/api"
 import { useNavigate, Link } from "react-router-dom"
+import { UserContext } from "../../contexts/User"
 
 function AddComment () {
     const {article_id} = useParams()
@@ -9,6 +10,7 @@ function AddComment () {
     const [currComment, setCurrComment] = useState('')
     const [isLoading, setIsLoading] = useState(false)
     const [isError, setIsError] = useState(false)
+    const {user} = useContext(UserContext)
 
     function updateComment(e) {
         e.preventDefault()
@@ -16,16 +18,22 @@ function AddComment () {
     }
 
     function submitComment() {
-        if(currComment === ''){
+        if(currComment.trim() === ''){
             setIsError("error")
+            setCurrComment('')
         }else{
             setIsLoading(true)
-            postComment(currComment,article_id).then(()=>{
+            postComment(currComment.trim(),article_id,user).then(()=>{
                 navigate(`/article/${article_id}`)
             })
             .catch((err)=>{
                 setIsLoading(false)
-                setIsError(err)
+                if(err.response.data.message === "User not found"){
+                    setIsError(err.response.data.message)
+                }else{
+                    setIsError(err)
+                }
+                
             })
         }
     }
@@ -33,6 +41,8 @@ function AddComment () {
     function checkError() {
         if(isError === "error"){
             return <p>Your comment must contain at least one character</p>
+        }else if(isError === "User not found"){
+            return <p>You must be logged in to post a comment</p>
         }else if(isError){
             return <p>Something has gone wrong please try again</p>
         }

@@ -89,16 +89,25 @@ function ArticlesContainer () {
     if(error) return <PageNotFound error={error}/>
 
     return <div>
-        <ul id="topics">{topics.map((topic)=>{
+        <div id="nav-buttons">
+        <ul id="topics" className="button-group">
+            <p>Filter by topic</p>
+            {topics.map((topic)=>{
             return <button className="unpressed" id={topic.slug} onClick={updateTopicParams} key={topic.slug}>{topic.slug}</button>
         })}</ul>
-        <ul>
+        <ul id="sort-by" className="button-group">
+            <p >Sort by</p>
             <button id="created_at" className="unpressed" onClick={updateSortByParams}>date</button>
             <button id="comment_count" className="unpressed" onClick={updateSortByParams}>comment count</button>
             <button id="votes" className="unpressed" onClick={updateSortByParams}>votes</button>
         </ul>
-        <button id="order" onClick={updateOrderParams}>High to Low</button>
-        <ul id="articles">{articles.map((article)=>{
+        <ul>
+           <label htmlFor="order"><p>Order from</p> </label>
+            <button id="order" onClick={updateOrderParams}>High to Low</button> 
+        </ul>
+        </div>
+        <ul id="articles">
+            {articles.map((article)=>{
             return <li key ={article.title}><Link to={`/article/${article.article_id}`}> <ArticlesTile article={article}/> </Link> </li>
         })}</ul>
     </div>
