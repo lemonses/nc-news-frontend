@@ -8,10 +8,12 @@ function Header() {
         })
     }
     return <div>
-        <h1>Welcome to Nc-News</h1>
-        <Link to ="/">
-            <button onClick={resetButtons}>home</button>
+        <h1>Welcome to Nc-News <Link to ="/" >
+            <button id="home-button" onClick={resetButtons}>home</button>
         </Link>
+        <Link to='/login'>
+            <button id="login-button">login</button>
+        </Link></h1>
     </div>
 }
 

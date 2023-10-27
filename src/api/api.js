@@ -22,11 +22,11 @@ export function getComments (article_id) {
 }
 
 export function addVotes (vote,article_id) {
-    return newsApi.patch(`articles/${article_id}`,{inc_votes:vote})
+    return newsApi.patch(`articles/${article_id}`,{inc_votes:vote}).then((response)=>{console.log(response)})
 }
 
-export function postComment (comment,article_id) {
-    return newsApi.post(`articles/${article_id}/comments`,{username:'grumpy19',body:`${comment}`})
+export function postComment (comment,article_id,username) {
+    return newsApi.post(`articles/${article_id}/comments`,{username,body:`${comment}`})
 }
 
 export function getTopics () {
